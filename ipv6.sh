@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# 函数：检查IPv6是否已启用
+# Function to check if IPv6 is enabled
 ipv6_enabled() {
     if [ "$(sysctl -n net.ipv6.conf.all.disable_ipv6)" -eq 0 ]; then
         return 0
@@ -9,28 +9,26 @@ ipv6_enabled() {
     fi
 }
 
-# 函数：获取IPv6网关地址
+# Function to get the IPv6 gateway address
 get_ipv6_gateway() {
     ip -6 route show default | awk '/via/ {print $3}'
 }
 
-# 函数：设置默认IPv6路由
+# Function to set the default IPv6 route
 set_ipv6_route() {
-    local gateway="$1"
-    local interface="$(ip -6 route show default | awk '/via/ {print $5}')"
-    ip -6 route add default via "$gateway" dev "$interface"
+    gateway="$1"
+    ip -6 route add default via "$gateway" dev "$(ip -6 route show default | awk '/via/ {print $5}')" metric 1024
 }
 
-# 主脚本
+# Main script
 if ipv6_enabled; then
     ipv6_gateway=$(get_ipv6_gateway)
     if [ -n "$ipv6_gateway" ]; then
-        echo "IPv6已启用，正在使用网关地址: $ipv6_gateway"
+        echo "IPv6 is enabled, using gateway: $ipv6_gateway"
         set_ipv6_route "$ipv6_gateway"
-        echo "已设置IPv6默认路由"
     else
-        echo "无法获取IPv6网关地址."
+        echo "Failed to obtain IPv6 gateway address."
     fi
 else
-    echo "IPv6未启用."
+    echo "IPv6 is not enabled."
 fi
