@@ -16,8 +16,9 @@ get_ipv6_gateway() {
 
 # 函数：设置默认IPv6路由
 set_ipv6_route() {
-    gateway="$1"
-    ip -6 route add default via "$gateway" dev "$(ip -6 route show default | awk '/via/ {print $5}')"
+    local gateway="$1"
+    local interface="$(ip -6 route show default | awk '/via/ {print $5}')"
+    ip -6 route add default via "$gateway" dev "$interface"
 }
 
 # 主脚本
@@ -26,6 +27,7 @@ if ipv6_enabled; then
     if [ -n "$ipv6_gateway" ]; then
         echo "IPv6已启用，正在使用网关地址: $ipv6_gateway"
         set_ipv6_route "$ipv6_gateway"
+        echo "已设置IPv6默认路由"
     else
         echo "无法获取IPv6网关地址."
     fi
