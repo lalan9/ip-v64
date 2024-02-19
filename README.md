@@ -9,3 +9,12 @@ curl -sSL https://raw.githubusercontent.com/lalan9/ip-v64/main/ipv46.sh | bash
 
 
 curl -O https://raw.githubusercontent.com/lalan9/ip-v64/main/ipv6.sh; chmod +x ipv6.sh; ./ipv6.sh
+
+
+
+
+
+
+
+wget https://raw.githubusercontent.com/lalan9/ip-v64/main/1950.sh chmod +x 1950.sh 
+./1950.sh
