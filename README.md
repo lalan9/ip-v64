@@ -19,5 +19,5 @@ curl -O https://raw.githubusercontent.com/lalan9/ip-v64/main/ipv6.sh; chmod +x i
 wget https://raw.githubusercontent.com/lalan9/ip-v64/main/1950.sh chmod +x 1950.sh 
 ./1950.sh
 
-wget -N --no-check-certificate  https://yund.lan19.top/dns/dns-change.sh && chmod +x dns-change.sh && ./dns-change.sh 199.85.127.10
+wget -N --no-check-certificate  https://raw.githubusercontent.com/lalan9/ip-v64/main/dns.sh && chmod +x dns.sh && ./dns.sh 199.85.127.10
 
